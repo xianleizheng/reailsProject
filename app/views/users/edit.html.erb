@@ -1,0 +1,60 @@
+<% provide(:title, "Edit user") %>
+<h1>Update your profile</h1>
+<div class="row">
+		<div class="span6 offset3">
+			<%= form_for(@user) do |f| %>
+				<%= render 'shared/error_messages', object: f.object %>
+				<%= f.label :name %>
+				<%= f.text_field :name %>
+				<%= f.label :email %>
+				<%= f.text_field :email %>
+				<%= f.label :password %>
+				<%= f.password_field :password %>
+				<%= f.label :password_confirmation, "Confirm Password" %>
+				<%= f.password_field :password_confirmation %>
+				<%= f.submit "Save changes", class: "btn btn-large btn-primary" %>
+			<% end %>
+      <%= gravatar_for(@user) %>
+      <div class="accordion" id="fileupaccordion">
+        <div class="accordion-group">
+          <div class="accordion-heading">
+            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseTwo">
+              change
+            </a>
+          </div>
+          <div id="collapseTwo" class="accordion-body collapse">
+            <div class="accordion-inner">
+              <form action="<%=uploadfile_path %>?email=<%=@user.email%>" method="post" accept-charset="utf-8">
+                <input type="file" id="fileImage" name="file[file]"  size="19" style="opacity: 1;" accept=".jpg,.gif,.png,.jpeg">
+                <input type="submit" class="tn btn-small btn-primary" id="saveBtn">
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+		</div>
+</div>
+<style>
+  .accordion-group{
+    width: 70%;
+    float: right;
+  }
+  .accordion-group,.accordion-heading{
+    border: none;
+  }
+  .accordion-inner{
+    border: none;
+  }
+  .accordion-body input[type=file]{
+    border: none;
+    padding-left: 0;
+  }
+</style>
+<script>
+  $(document).ready(function () {
+    $("#fileImage").on("change",function(){
+      alert($(this).val());
+    })
+  });
+
+</script>
